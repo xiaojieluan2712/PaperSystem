@@ -1,15 +1,24 @@
 <template>
-    <div>
-      this is bankManagement
+    <div class="container">
+       <condition></condition>
     </div>
 </template>
 
 <script>
+import Condition from '@/components/condition'
 export default {
-  name: 'bankManagement'
+  components: {
+    Condition
+  },
+  name: 'bankManagement',
+  data() {
+    return {
+    }
+  },
+  methods: {
+  }
 }
 </script>
 
 <style scoped>
-
 </style>
