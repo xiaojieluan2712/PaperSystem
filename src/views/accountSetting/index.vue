@@ -38,12 +38,29 @@ export default {
       phone: '',
       mail: '',
       employYear: '',
+      profession: '',
       departName: '',
       duty: '',
       area: '',
       role: '',
-      remark: ''
+      remark: '',
+      userInfo: {}
     }
+  },
+  mounted() {
+    this.userInfo = this.$store.getters.userInfo
+    // console.log(this.userInfo)
+    this.userName = this.userInfo.userName
+    this.relName = this.userInfo.relName
+    this.sex = this.userInfo.sex
+    this.phone = this.userInfo.phone
+    this.mail = this.userInfo.mail
+    this.profession = this.userInfo.profession
+    this.duty = this.userInfo.duty
+    this.departName = this.userInfo.departName
+    this.area = this.userInfo.area
+    this.role = this.userInfo.role
+    this.remark = this.userInfo.remark
   }
 }
 </script>

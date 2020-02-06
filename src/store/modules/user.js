@@ -1,15 +1,22 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
-    user: '',
-    status: '',
-    code: '',
-    token: getToken(),
-    name: '',
-    avatar: '',
-    introduction: '',
+    userInfo: {},
+    userId: '',
+    relName: '',
+    username: '',
+    token: '',
+    password: '',
+    sex: '',
+    phone: '',
+    mail: '',
+    departmentName: '',
+    profession: '',
+    duty: '',
+    remark: '',
+    area: '',
     roles: [],
     setting: {
       articlePlatform: []
@@ -17,14 +24,20 @@ const user = {
   },
 
   mutations: {
-    SET_CODE: (state, code) => {
-      state.code = code
+    SET_USERID: (state, userId) => {
+      state.userId = userId
+    },
+    SET_RELNAME: (state, relName) => {
+      state.relName = relName
+    },
+    SET_USERNAME: (state, userName) => {
+      state.userName = userName
+    },
+    SET_USERINFO: (state, userInfo) => {
+      state.userInfo = userInfo
     },
     SET_TOKEN: (state, token) => {
       state.token = token
-    },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
     },
     SET_SETTING: (state, setting) => {
       state.setting = setting
@@ -47,11 +60,22 @@ const user = {
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
+      const password = userInfo.password
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
+        const data = {
+          username: username,
+          password: password
+        }
+        loginByUsername(data).then(response => {
           const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          const roles = []
+          roles.push(data.data.role)
+          console.log(roles)
+          if (data.resCode === 1) { // 账号密码正确，设置token
+            commit('SET_TOKEN', data.data.token)
+            // commit('SET_ROLES', roles)
+            setToken(response.data.data.token) // 将token存进cookie中
+          }
           resolve()
         }).catch(error => {
           reject(error)
@@ -62,15 +86,20 @@ const user = {
     // 获取用户信息
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
-          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-            reject('error')
-          }
-          const data = response.data
-          commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
+        getUserInfo().then(response => {
+          // console.log('getUserInfo接口返回数据')
+          // console.log(response)
+          // if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
+          //   reject('error')
+          // }
+          const user = response.data[0]
+          const roles = []
+          roles.push(user.role)
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', user.username)
+          commit('SET_USERINFO', user)
+          // commit('SET_AVATAR', data.avatar)
+          // commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {
           reject(error)

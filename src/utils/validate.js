@@ -3,8 +3,10 @@
  */
 
 export function isvalidUsername(str) {
-  const valid_map = ['admin', 'editor']
-  return valid_map.indexOf(str.trim()) >= 0
+  // const valid_map = ['admin', 'editor']
+  // return valid_map.indexOf(str.trim()) >= 0
+  const pattrn = '321'
+  return str.indexOf(pattrn) === 0 && str.length === 6// username为321开头且长度为6
 }
 
 /* 合法uri*/

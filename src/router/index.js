@@ -9,7 +9,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '../views/layout/Layout'
 
-/** note: submenu only apppear when children.length>=1
+/** note: submenu only apppear when children.length>=1 子菜单只有在children的长度大于1 的时候显示
 *   detail see  https://panjiachen.github.io/vue-element-admin-site/#/router-and-nav?id=sidebar
 **/
 
@@ -48,14 +48,19 @@ export const asyncRouterMap = [
     path: '/accountSetting',
     component: Layout,
     redirect: '/accountSetting/index',
+    meta: {
+      title: 'accountSetting',
+      icon: 'component',
+      roles: ['admin', 'editor'] // or you can only set roles in sub nav
+    },
     children: [{
       path: 'index',
       component: _import('accountSetting/index'),
       name: 'accountSetting',
       meta: {
         title: 'accountSetting',
-        icon: 'component'
-        // roles: ['admin'] // or you can only set roles in sub nav
+        icon: 'component',
+        roles: ['admin', 'editor'] // or you can only set roles in sub nav
       }
     }]
   },
@@ -63,13 +68,19 @@ export const asyncRouterMap = [
     path: '/testEntry',
     component: Layout,
     redirect: '/testEntry/index',
+    meta: {
+      title: 'testEntry',
+      icon: 'documentation',
+      roles: ['admin', 'editor']
+    },
     children: [{
       path: 'index',
       component: _import('testEntry/index'),
       name: 'testEntry',
       meta: {
         title: 'testEntry',
-        icon: 'documentation'
+        icon: 'documentation',
+        roles: ['admin', 'editor']
       }
     }]
   },
@@ -77,13 +88,19 @@ export const asyncRouterMap = [
     path: '/dataQuery',
     component: Layout,
     redirect: '/dataQuery/index',
+    meta: {
+      title: 'dataQuery',
+      icon: 'clipboard',
+      roles: ['admin', 'editor']
+    },
     children: [{
       path: 'index',
       component: _import('dataQuery/index'),
       name: 'dataQuery',
       meta: {
         title: 'dataQuery',
-        icon: 'clipboard'
+        icon: 'clipboard',
+        roles: ['admin', 'editor']
       }
     }]
   },
@@ -91,13 +108,19 @@ export const asyncRouterMap = [
     path: '/bankManagement',
     component: Layout,
     redirect: '/bankManagement/index',
+    meta: {
+      title: 'bankManagement',
+      icon: 'dashboard',
+      roles: ['admin', 'editor']
+    },
     children: [{
       path: 'index',
       component: _import('bankManagement/index'),
       name: 'bankManagement',
       meta: {
         title: 'bankManagement',
-        icon: 'dashboard'
+        icon: 'dashboard',
+        roles: ['admin', 'editor']
       }
     }]
   },
@@ -107,14 +130,16 @@ export const asyncRouterMap = [
     redirect: '/testPaper/automaticTest',
     meta: {
       title: 'testPaper',
-      icon: 'component'
+      icon: 'component',
+      roles: ['admin', 'editor']
     },
     children: [{
       path: 'automaticTest',
       component: _import('testPaper/automaticTest/index'),
       name: 'automaticTest',
       meta: {
-        title: 'automaticTest'
+        title: 'automaticTest',
+        roles: ['admin', 'editor']
       }
     },
     {
@@ -122,7 +147,8 @@ export const asyncRouterMap = [
       component: _import('testPaper/customizeTest/index'),
       name: 'customizeTest',
       meta: {
-        title: 'customizeTest'
+        title: 'customizeTest',
+        roles: ['admin', 'editor']
       }
     }]
   },
