@@ -1,5 +1,5 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { setToken, removeToken } from '@/utils/auth'
+import { loginByUsername, logout, getUserInfo, changeUserInfo, changeRemark } from '@/api/login'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
@@ -7,7 +7,7 @@ const user = {
     userId: '',
     relName: '',
     username: '',
-    token: '',
+    token: getToken(),
     password: '',
     sex: '',
     phone: '',
@@ -32,6 +32,9 @@ const user = {
     },
     SET_USERNAME: (state, userName) => {
       state.userName = userName
+    },
+    SET_REMARK: (state, remark) => {
+      state.remark = remark
     },
     SET_USERINFO: (state, userInfo) => {
       state.userInfo = userInfo
@@ -73,8 +76,9 @@ const user = {
           console.log(roles)
           if (data.resCode === 1) { // 账号密码正确，设置token
             commit('SET_TOKEN', data.data.token)
-            // commit('SET_ROLES', roles)
             setToken(response.data.data.token) // 将token存进cookie中
+          } else if (data.resCode === 2) {
+            alert('密码错误')
           }
           resolve()
         }).catch(error => {
@@ -87,11 +91,6 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(response => {
-          // console.log('getUserInfo接口返回数据')
-          // console.log(response)
-          // if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-          //   reject('error')
-          // }
           const user = response.data[0]
           const roles = []
           roles.push(user.role)
@@ -106,20 +105,36 @@ const user = {
         })
       })
     },
-
-    // 第三方验证登录
-    // LoginByThirdparty({ commit, state }, code) {
-    //   return new Promise((resolve, reject) => {
-    //     commit('SET_CODE', code)
-    //     loginByThirdparty(state.status, state.email, state.code).then(response => {
-    //       commit('SET_TOKEN', response.data.token)
-    //       setToken(response.data.token)
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    // 用户修改个人信息
+    changeUserInfo({ commit }, userInfo) {
+      return new Promise((resolve, reject) => {
+        changeUserInfo(userInfo).then(response => {
+          console.log('请求发送成功')
+          console.log(response)
+          resolve()
+        }).catch(error => {
+          console.log('请求发送失败')
+          reject(error)
+        })
+      })
+    },
+    // 修改备注信息
+    changeRemark({ commit }, remark) {
+      console.log('第二个remark' + remark)
+      return new Promise((resolve, reject) => {
+        const data = {
+          remark: remark
+        }
+        changeRemark(data).then(response => {
+          console.log('修改成功')
+          commit('SET_REMARK', remark)
+          resolve()
+        }).catch(error => {
+          console.log(error)
+          reject()
+        })
+      })
+    },
 
     // 登出
     LogOut({ commit, state }) {

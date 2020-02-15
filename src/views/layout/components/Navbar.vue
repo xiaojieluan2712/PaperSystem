@@ -19,7 +19,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+          <img class="user-avatar" :src="avatarImg">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -60,6 +60,11 @@ export default {
     LangSelect,
     ThemePicker
   },
+  data() {
+    return {
+      avatarImg: '/static/img/default-avatar.jpg'
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -74,6 +79,7 @@ export default {
     logout() {
       this.$store.dispatch('LogOut').then(() => {
         location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+        // this.route.push('/login')
       })
     }
   }

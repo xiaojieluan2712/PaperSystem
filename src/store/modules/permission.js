@@ -8,7 +8,7 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
 function hasPermission(roles, route) { // roles为['editor'],route为每一个路由对象，记住，roles是一个数组
   if (route.meta && route.meta.roles) {
     // console.log(roles)
-    return true // roles.some(role => route.meta.roles.indexOf(role) >= 0) // roles中有一个满足条件就返回true
+    return roles.some(role => route.meta.roles.indexOf(role) >= 0) // roles中有一个满足条件就返回true
   } else {
     return true
   }

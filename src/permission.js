@@ -7,21 +7,21 @@ import { getToken } from '@/utils/auth' // getToken from cookie
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
-// permissiom judge function
-function hasPermission(roles, permissionRoles) {
-  if (roles.indexOf('admin') >= 0) return true // admin permission passed directly
-  if (!permissionRoles) return true
-  return roles.some(role => permissionRoles.indexOf(role) >= 0)
-}
+// permissiom judge function，不需要用到
+// function hasPermission(roles, permissionRoles) {
+//   if (roles.indexOf('admin') >= 0) return true // admin permission passed directly
+//   if (!permissionRoles) return true
+//   return roles.some(role => permissionRoles.indexOf(role) >= 0)
+// }
 
-const whiteList = ['/login']// no redirect whitelist
+const whiteList = ['/login']// no redirect whitelist，不用登陆就可以访问的页面
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) { // determine if there has token
     /* has token*/
     // console.log('检查有没有token')
-    // console.log(getToken())
+    console.log(getToken())
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
@@ -44,11 +44,12 @@ router.beforeEach((to, from, next) => {
         })
       } else {
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        if (hasPermission(store.getters.roles, to.meta.roles)) {
-          next()//
-        } else {
-          next({ path: '/401', replace: true, query: { noGoBack: true }})
-        }
+        // if (hasPermission(store.getters.roles, to.meta.roles)) {
+        //   next()//
+        // } else {
+        //   next({ path: '/401', replace: true, query: { noGoBack: true }})
+        // }
+        next()
         // 可删 ↑
       }
     }
