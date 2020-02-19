@@ -77,6 +77,7 @@ export const asyncRouterMap = [
       path: 'index',
       component: _import('testEntry/index'),
       name: 'testEntry',
+      // hidden: true,
       meta: {
         title: 'testEntry',
         icon: 'documentation',
