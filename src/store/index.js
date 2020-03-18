@@ -6,6 +6,8 @@ import permission from './modules/permission'
 import tagsView from './modules/tagsView'
 import user from './modules/user'
 import testEntry from './modules/testEntry'
+import dataQuery from './modules/dataQuery'
+import automaticTest from './modules/automaticTest'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -17,7 +19,9 @@ const store = new Vuex.Store({
     permission,
     tagsView,
     user,
-    testEntry
+    testEntry,
+    dataQuery,
+    automaticTest
   },
   getters
 })

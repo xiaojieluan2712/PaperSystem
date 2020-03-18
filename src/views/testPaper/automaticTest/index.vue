@@ -1,10 +1,10 @@
 <template>
     <div class="container">
       <div class="top-side">
-        <catalog :isCustom="isCustom"></catalog>
+        <catalog :isCustom="isCustom" @toFinishPaper="toFinishPaper"></catalog>
       </div>
-      <div class="bottom">
-        <record-list></record-list>
+      <div class="details">
+        <paper-details :autoPaperObj="autoPaperObj"></paper-details>
       </div>
     </div>
 </template>
@@ -12,17 +12,30 @@
 <script>
 import Catalog from '@/components/catalog'
 import Paper from '@/components/paper'
-import RecordList from '@/components/recordList'
+import paperDetails from '@/components/paperDetails'
 export default {
   name: 'automaticTest',
   components: {
-    RecordList,
+    paperDetails,
     Catalog,
     Paper
   },
   data() {
     return {
-      isCustom: false
+      isCustom: false,
+      autoPaperObj: {}
+    }
+  },
+  methods: {
+    toFinishPaper(data) { // 自动组卷
+      this.$store.dispatch('autoCreate', data).then(() => {
+        // console.log('这里点击自动组卷按钮发送请求')
+        this.autoPaperObj = this.$store.getters.autoPaperObj
+        // console.log(this.autoPaperObj)
+      }).catch(err => {
+        // console.log('点击自动组卷按钮报错')
+        console.log(err)
+      })
     }
   }
 }

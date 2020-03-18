@@ -17,6 +17,12 @@ const getters = {
   subjectsList: state => state.testEntry.subjectsList,
   quesTypes: state => state.testEntry.quesTypes,
   quesArray: state => state.testEntry.quesArray,
-  quesObj: state => state.testEntry.quesObj
+  quesObj: state => state.testEntry.quesObj,
+  dataSubjectsList: state => state.dataQuery.subjectsList,
+  dataQuesTypes: state => state.dataQuery.quesTypes,
+  questionerList: state => state.dataQuery.questionerList,
+  dataQuesArray: state => state.dataQuery.quesArray,
+  autoSubjectsList: state => state.automaticTest.autoSubjectsList,
+  autoPaperObj: state => state.automaticTest.autoPaperObj
 }
 export default getters

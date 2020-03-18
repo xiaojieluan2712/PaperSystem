@@ -61,7 +61,6 @@ export default {
         typeName: this.quesObj.typeName,
         quesId: this.quesObj.quesId
       }
-      // console.log(data)
       this.$emit('handleSaveEdit', data)
     },
     handleDeleteQues() {

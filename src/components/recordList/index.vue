@@ -1,9 +1,9 @@
 <template>
     <div class="container">
       <div class="ques-list">
-        <div v-for="item in quesArray" :key="item.id">
+        <div v-for="item in quesArray" :key="item.quesId" @click="handleDetails(item.quesId)">
           <div class="ques">
-            <el-tag size="mini" style="float:left;margin-right:3px;">{{ item.typeName }}</el-tag>
+            <el-tag size="mini" :color="item.labelColor" style="float:left;margin-right:3px;color:#666">{{ item.typeName }}</el-tag>
             <el-tag type="info" size="mini" style="float:left;margin-right:3px;">{{ item.subAbbr }}</el-tag>
             <a class="details" :title="tips">{{ item.question }}</a>
           </div>
@@ -15,21 +15,18 @@
 <script>
 export default {
   name: 'recordList',
+  props: ['quesArray'],
   data() {
     return {
-      quesArray: [
-        { // 初始化数据
-          id: +new Date(),
-          subject: '大学英语',
-          subAbbr: '大英（1）',
-          type: '1',
-          typeName: '选择题',
-          question: '____ nice a day',
-          result: 'How',
-          Date: new Date(),
-          keyWords: '感叹句'
-        }
-      ]
+      tips: '详情'
+    }
+  },
+  methods: {
+    handleDetails(quesId) {
+      const data = {
+        quesId: quesId
+      }
+      this.$emit('handleDetails', data)
     }
   }
 }
@@ -39,4 +36,11 @@ export default {
 .container{
   padding:10px 20px;
 }
+  .ques{
+    margin:10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:80%;
+  }
 </style>

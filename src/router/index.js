@@ -85,6 +85,26 @@ export const asyncRouterMap = [
       }
     }]
   },
+  // {
+  //   path: '/bankManagement',
+  //   component: Layout,
+  //   redirect: '/bankManagement/index',
+  //   meta: {
+  //     title: 'bankManagement',
+  //     icon: 'dashboard',
+  //     roles: ['admin', 'editor']
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: _import('bankManagement/index'),
+  //     name: 'bankManagement',
+  //     meta: {
+  //       title: 'bankManagement',
+  //       icon: 'dashboard',
+  //       roles: ['admin', 'editor']
+  //     }
+  //   }]
+  // },
   {
     path: '/dataQuery',
     component: Layout,
@@ -101,26 +121,6 @@ export const asyncRouterMap = [
       meta: {
         title: 'dataQuery',
         icon: 'clipboard',
-        roles: ['admin', 'editor']
-      }
-    }]
-  },
-  {
-    path: '/bankManagement',
-    component: Layout,
-    redirect: '/bankManagement/index',
-    meta: {
-      title: 'bankManagement',
-      icon: 'dashboard',
-      roles: ['admin', 'editor']
-    },
-    children: [{
-      path: 'index',
-      component: _import('bankManagement/index'),
-      name: 'bankManagement',
-      meta: {
-        title: 'bankManagement',
-        icon: 'dashboard',
         roles: ['admin', 'editor']
       }
     }]

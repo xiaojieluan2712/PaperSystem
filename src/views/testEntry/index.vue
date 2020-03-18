@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import QuesDetails from '@/views/testEntry/details'
+import QuesDetails from '@/components/details/details'
 import { getTime } from '@/utils/getTime'
 
 export default {
@@ -69,6 +69,7 @@ export default {
     return {
       subject: '',
       subjectsList: [],
+      subjectId: 0,
       quesTypes: [],
       quesArray: [],
       type: '',
@@ -92,7 +93,7 @@ export default {
     this.$store.dispatch('initial').then(() => {
       this.subjectsList = this.$store.getters.subjectsList
       this.quesTypes = this.$store.getters.quesTypes
-      this.quesArray = this.$store.getters.quesArray
+      this.quesArray = this.$store.getters.quesArray.slice(0, 15)
     }).catch(error => {
       console.log(error)
     })
@@ -101,7 +102,6 @@ export default {
     querySearch(queryString, cb) {
       const subjectsList = this.subjectsList
       const results = queryString ? subjectsList.filter(this.createFilter(queryString)) : subjectsList
-      // const results = subjectsList
       // 调用 callback 返回建议列表的数据
       cb(results)
     },
