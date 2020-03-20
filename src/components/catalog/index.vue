@@ -114,9 +114,9 @@ export default {
       subjectId: 0,
       updateTime: '',
       isAutomatic: false,
-      score: '',
+      score: 0,
       isAuto: true,
-      selectSubjectName: '',
+      // selectSubjectName: '',
       perScore: '',
       typeScoreList: [],
       selectedType: {
@@ -140,7 +140,7 @@ export default {
       // 所有的变量重置为空
       this.paperName = ''
       this.subject = ''
-      this.score = ''
+      this.score = 0
       this.selectedType.dynamicItem = [[]]
     },
     toEditFinish() {
@@ -194,8 +194,11 @@ export default {
     },
     toFinishPaper() { // 自动组卷
       const data = {
-        typeScoreList: this.typeScoreList,
-        subjectId: this.subjectId
+        typeScoreList: this.typeScoreList, // 题型和分值
+        score: this.score, // 总分
+        subjectId: this.subjectId,
+        subjectName: this.subject,
+        paperName: this.paperName
       }
       this.$emit('toFinishPaper', data)
     },
